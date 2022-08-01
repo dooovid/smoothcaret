@@ -10,7 +10,7 @@ function getTextWidth(text, font) {
 }
 
 //constants: necesary styling, canvas for measuring text and password cover character depending on browser
-const styleString = '.sc-container{display:grid;grid-template-columns:repeat(1,1fr);}.smoothCaretInput{grid-column:1/3;caret-color:transparent}.caret{grid-column:2/-2;align-self:center;transition:.2s}.caret,.smoothCaretInput{grid-row:1/2}';
+const styleString = '.sc-container{display:grid;grid-template-columns:repeat(1,1fr);}.smoothCaretInput{grid-column:1/3;caret-color:transparent}.caret{grid-column:2/-2;align-self:center;transition:.2s;opacity: 0;}.caret,.smoothCaretInput{grid-row:1/2}';
 const style = document.createElement('style');
 const canvElem = document.createElement('canvas');
 const passwordChar = navigator.userAgent.match(/firefox|fxios/i) ? '\u25CF' : '\u2022';
@@ -40,7 +40,7 @@ class SmoothCaret {
     init() {
         this.inputElem.dataset.sc = this.index;
         this.inputElem.addEventListener('input', (e) => this.update((e.target.type === 'password') ? Array(e.target.value.length + 1).join(passwordChar) : e.target.value));
-        this.inputElem.addEventListener('blur', () => {this.caretElem.style.opacity = '0'; this.caretElem.style.marginLeft = '';});
+        this.inputElem.addEventListener('blur', () => {this.caretElem.style.opacity = ''; this.caretElem.style.marginLeft = '';});
     }
 
     update(text) {
