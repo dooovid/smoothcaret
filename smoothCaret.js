@@ -1,3 +1,4 @@
+//smoothCaret.js made by doovid <3
 function css(element, property) {
     return window.getComputedStyle(element, null).getPropertyValue(property);
 }
