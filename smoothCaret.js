@@ -40,13 +40,13 @@ class SmoothCaret {
     init() {
         this.inputElem.dataset.sc = this.index;
         this.inputElem.addEventListener('input', (e) => this.update((e.target.type === 'password') ? Array(e.target.value.length + 1).join(passwordChar) : e.target.value));
-        this.inputElem.addEventListener('blur', () => {this.caretElem.style.opacity = ''; this.caretElem.style.marginLeft = '';});
+        this.inputElem.addEventListener('blur', () => {this.caretElem.style.opacity = ''; this.caretElem.style.transform = '';});
     }
 
     update(text) {
         this.caretElem.style.opacity = '1';
         this.textWidth = (getTextWidth(text, this.font) > 0) ? getTextWidth(text, this.font) + this.caretMargin : this.caretMargin - this.caretWidth / 2;
-        (this.textWidth > this.maxMargin) ? void(0) : this.caretElem.style.marginLeft = `${this.textWidth}px`;
+        (this.textWidth > this.maxMargin) ? void(0) : this.caretElem.style.transform = `translateX(${this.textWidth}px)`;
     }
 }
 
