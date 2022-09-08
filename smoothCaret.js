@@ -13,7 +13,7 @@ function getTextWidth(text, font) {
 const styleString = '.sc-container{display:grid;grid-template-columns:repeat(1,1fr);}.smoothCaretInput{grid-column:1/3;caret-color:transparent}.caret{grid-column:2/-2;align-self:center;transition:.2s;opacity: 0;}.caret,.smoothCaretInput{grid-row:1/2}';
 const style = document.createElement('style');
 const canvElem = document.createElement('canvas');
-const passwordChar = navigator.userAgent.match(/firefox|fxios/i) ? '\u25CF' : '\u2022'
+const passwordChar = navigator.userAgent.match(/firefox|fxios/i) ? '\u25CF' : '\u2022';
 
 //appending constants to dom
 style.innerText = styleString
@@ -31,6 +31,7 @@ class SmoothCaret {
         this.maxMargin = parseInt(css(inputElem.parentElement, 'width'))-10;
         this.caretMargin = parseInt(css(inputElem, 'padding-left')) + 2;
         this.caretWidth = parseInt(caretElem.style.width);
+        this.letterSpacing = (parseInt(css(inputElem, 'letter-spacing'))) ? parseInt(css(inputElem, 'letter-spacing')) : 0;
         this.caretElem = caretElem;
         this.inputElem = inputElem;
         this.textWidth = undefined;
@@ -38,6 +39,7 @@ class SmoothCaret {
     }
 
     init() {
+        console.log(this.letterSpacing)
         this.inputElem.dataset.sc = this.index;
         this.pw_ratio = (this.inputElem.type == 'password') ? getTextWidth(passwordChar+passwordChar, this.font) - getTextWidth(passwordChar, this.font) : null;
         this.inputElem.addEventListener('input', (e) => this.update((e.target.type === 'password') ? Array(e.target.value.length + 1).join(passwordChar) : e.target.value));
@@ -46,7 +48,7 @@ class SmoothCaret {
 
     update(text) {
         this.caretElem.style.opacity = '1';
-        this.textWidth = (this.pw_ratio) ? this.pw_ratio * text.length + this.caretMargin : (getTextWidth(text, this.font) > 0) ? getTextWidth(text, this.font) + this.caretMargin : this.caretMargin - this.caretWidth / 2;
+        this.textWidth = (this.pw_ratio) ? this.pw_ratio * text.length + this.caretMargin + this.letterSpacing * (text.length-1) : (getTextWidth(text, this.font) > 0) ? getTextWidth(text, this.font) + this.caretMargin + this.letterSpacing * (text.length-1) : this.caretMargin - this.caretWidth / 2;
         (this.textWidth > this.maxMargin) ? void(0) : this.caretElem.style.transform = `translateX(${this.textWidth}px)`;
     }
 }
