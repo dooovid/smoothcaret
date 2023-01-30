@@ -11,9 +11,9 @@ Put this anywhere in your HTML file:
 <script src="https://dooovid.github.io/smoothcaret/demo/smoothCaret.min.js" defer></script>
 ```
 
-Simply put your input element inside a container and add a caret div with the required class names and styling on everytything (shown bellow)
+Simply put your input element inside a container and add a caret div with the required class names and styling on everything (shown bellow)
 <br />
-*note: this also works on type=password inputs*
+*note: this also works on `type=password` inputs*
 ```html
 <div class="sc-container">
   <input data-sc="" class="smoothCaretInput" placeholder="type something..." type="text" >
